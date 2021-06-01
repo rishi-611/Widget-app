@@ -40,8 +40,15 @@ const SearchResult = function ({ list }) {
           </a>
         </div>
         <div className="content">
-          <div className="header">{search.title}</div>
-          <div className="description">{cleanSnippet}</div>
+          <div className="header" style={{ margin: "0.4rem 0" }}>
+            {search.title}
+          </div>
+          <div
+            className="description"
+            style={{ lineHeight: "1.3rem", wordSpacing: "0.2rem" }}
+          >
+            {cleanSnippet}
+          </div>
         </div>
       </li>
     );
