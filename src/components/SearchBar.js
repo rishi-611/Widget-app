@@ -22,7 +22,7 @@ const SearchBar = function () {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(term);
+
     setSearchInput(term);
   };
 
@@ -39,16 +39,25 @@ const SearchBar = function () {
               list: "search",
               origin: "*",
               format: "json",
-              srsearch: searchInput,
+              srsearch: term,
             },
           }
         );
+        // console.log(data);
         const searchList = data.query.search;
         setResult(searchList);
       };
-      if (searchInput) getData(searchInput);
+      console.log(term);
+
+      const timer = setTimeout(() => {
+        if (term) {
+          getData(term);
+        }
+      }, 700);
+
+      return (timer) => clearTimeout(timer);
     },
-    [searchInput]
+    [searchInput, term]
   );
 
   return (
