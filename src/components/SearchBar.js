@@ -6,6 +6,7 @@ import SearchResult from "./SearchResults";
 
 const SearchBar = function () {
   const [term, setTerm] = useState("");
+  const [searchInput, setSearchInput] = useState("");
   const [result, setResult] = useState([]);
   const wrapperStyle = {
     background: "linear-gradient(to right, #111, #444)",
@@ -19,6 +20,14 @@ const SearchBar = function () {
     setTerm(e.target.value);
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(term);
+    setSearchInput(term);
+  };
+
+  // triggered if(page first renders) or (page gets rerendered AND searchInput has changed.)
+  // hence on handlechange rerender, since searchinput is changed, useEffect is not triggered
   useEffect(
     function () {
       const getData = async function (term) {
@@ -30,22 +39,22 @@ const SearchBar = function () {
               list: "search",
               origin: "*",
               format: "json",
-              srsearch: term,
+              srsearch: searchInput,
             },
           }
         );
         const searchList = data.query.search;
         setResult(searchList);
       };
-      if (term) getData(term);
+      if (searchInput) getData(searchInput);
     },
-    [term]
+    [searchInput]
   );
 
   return (
     <div>
       <div className="ui search " style={wrapperStyle}>
-        <div className="ui icon input">
+        <form className="ui icon input" onSubmit={(e) => handleSubmit(e)}>
           <input
             className="prompt"
             type="text"
@@ -59,8 +68,7 @@ const SearchBar = function () {
           >
             <i className="search icon"></i>
           </button>
-        </div>
-        <div className="results"></div>
+        </form>
       </div>
       <SearchResult list={result} />
     </div>
