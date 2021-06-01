@@ -31,6 +31,10 @@ const SearchBar = function () {
   useEffect(
     function () {
       const getData = async function (term) {
+        if (term === -1) {
+          setResult(["no search yet"]);
+          return;
+        }
         const { data } = await axios.get(
           `https://en.wikipedia.org/w/api.php?`,
           {
@@ -45,13 +49,18 @@ const SearchBar = function () {
         );
         // console.log(data);
         const searchList = data.query.search;
-        setResult(searchList);
+        if (searchList.length === 0) {
+          setResult(["request failed"]);
+        } else {
+          setResult(searchList);
+        }
       };
-      console.log(term);
 
       const timer = setTimeout(() => {
         if (term) {
           getData(term);
+        } else {
+          getData(-1);
         }
       }, 700);
 

@@ -3,11 +3,25 @@ import "semantic-ui-css/semantic.min.css";
 
 const SearchResult = function ({ list }) {
   // console.log(list);
-  if (!list) {
-    console.log("no results found");
+  const warningStyle = {
+    margin: "0.2rem 0.75rem",
+    border: "2px solid orange",
+    display: "inline-block",
+    padding: "0.5rem",
+    borderRadius: "0.5rem",
+  };
+  if (list[0] === "no search yet") {
     return (
       <div>
-        <p>No Results found! 😢</p>
+        <p style={warningStyle}>Try typing something in the search bar</p>
+      </div>
+    );
+  }
+
+  if (list[0] === "request failed") {
+    return (
+      <div>
+        <p style={warningStyle}>No results found. 😥</p>
       </div>
     );
   }
@@ -32,8 +46,6 @@ const SearchResult = function ({ list }) {
       </li>
     );
   });
-
-  console.log(resultList);
 
   return (
     <ul className="ui relaxed divided list" style={{ maxWidth: "60rem" }}>
