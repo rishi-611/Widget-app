@@ -1,0 +1,10 @@
+.ui.fluid.container {
+  display: flex;
+  flex-flow: column wrap;
+  align-content: center;
+  justify-content: start;
+}
+
+.ui.search {
+  width: 98%;
+}

@@ -3,15 +3,16 @@ import "semantic-ui-css/semantic.min.css";
 
 import axios from "axios";
 import SearchResult from "./SearchResults";
+import "../css/Searchbar.css";
 
 const SearchBar = function () {
   const [term, setTerm] = useState("");
   const [searchInput, setSearchInput] = useState("");
   const [result, setResult] = useState([]);
   const wrapperStyle = {
-    background: "linear-gradient(to right, #111, #444)",
+    background: "linear-gradient(to top right, #111, #444)",
     display: "inline-block",
-    padding: "0.5rem",
+    padding: "1.5rem  1rem",
     borderRadius: "1rem",
     margin: "0.4rem",
   };
@@ -64,13 +65,15 @@ const SearchBar = function () {
         }
       }, 700);
 
-      return (timer) => clearTimeout(timer);
+      return (timer) => {
+        clearTimeout(timer);
+      };
     },
     [searchInput, term]
   );
 
   return (
-    <div>
+    <div className="ui fluid container">
       <div className="ui search " style={wrapperStyle}>
         <form className="ui icon input" onSubmit={(e) => handleSubmit(e)}>
           <input
